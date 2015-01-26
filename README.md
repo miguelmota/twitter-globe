@@ -1,8 +1,8 @@
-# Titter Globe
-
-Twitter tweets with geolocation show up on globe.
+# Twitter Globe
 
 ![](https://github.com/miguelmota/twitter-globe/blob/master/screenshot.png)
+
+Geolocated tweets on a globe.
 
 # Demo
 
