@@ -64,6 +64,7 @@ nbproject
 *.sass-cache
 *.grunt
 *.tmp
+*.module-cache
 
 # Dreamweaver added files #
 ###########################
@@ -77,7 +78,7 @@ dwsync.xml
 
 # Node #
 #####################
-node_modules
+#node_modules
 
 # Bower #
 #####################
