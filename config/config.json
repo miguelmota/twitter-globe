@@ -1,0 +1,13 @@
+{
+    "twitter": {
+     "consumer_key": "EaMYaFp893YsqYpMDagm8aR64",
+     "consumer_secret": "XhlxagjviDS68zM6FWDdcEQWGShiRXxlL0R2Sjh2kWlbzMPZ6g",
+     "access_token": "30783806-NMwoVB01v4jZwgJVVcOVYNtfoMqyyUVxRcHQREGqa",
+     "access_token_secret": "wqhT67v2Wxwx1GNitk7IbxEfG0MyeHzGoYCtKGJSAAowu"
+    },
+    "defaults": {
+        "track": [
+            "food"
+        ]
+    }
+}

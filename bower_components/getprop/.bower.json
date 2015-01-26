@@ -1,0 +1,31 @@
+{
+  "name": "getprop",
+  "main": "getprop.js",
+  "homepage": "https://github.com/miguelmota/getprop",
+  "authors": [
+    "Miguel Mota <miguelmota2@gmail.com>"
+  ],
+  "description": "Get a property from object",
+  "keywords": [
+    "property",
+    "object"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "license": "MIT",
+  "_release": "cb01f1f007",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "cb01f1f007241dc8e70c235c04e29e4e025a3c84"
+  },
+  "_source": "git://github.com/miguelmota/getprop.git",
+  "_target": "*",
+  "_originalSource": "getprop",
+  "_direct": true
+}

@@ -1,0 +1,474 @@
+@import 'compass';
+@import url(http://fonts.googleapis.com/css?family=Play);
+
+$light-blue: rgba(74, 174, 197, 0.86);
+$lighter-blue: rgba(195, 240, 245, 0.86);
+$geo-green: rgba(41, 171, 105, 0.69);
+$twitter-blue: rgba(85, 172, 238, 0.9);
+
+/**
+ * =MIXINS
+ */
+
+@mixin textGlitch($name, $intensity, $textColor, $background, $highlightColor1, $highlightColor2, $width, $height) {
+
+  color: $textColor;
+  position: relative;
+  $steps: $intensity;
+
+  // Ensure the @keyframes are generated at the root level
+  @at-root {
+    // We need two different ones
+    @for $i from 1 through 2 {
+      @keyframes #{$name}-anim-#{$i} {
+        @for $i from 0 through $steps {
+          #{percentage($i*(1/$steps))} {
+            clip: rect(
+              random($height)+px,
+              $width+px,
+              random($height)+px,
+              0
+            );
+          }
+        }
+      }
+    }
+  }
+  &:before,
+  &:after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: $background;
+    clip: rect(0, 0, 0, 0);
+  }
+  &:after {
+    left: 2px;
+    text-shadow: -1px 0 $highlightColor1;
+    animation: #{$name}-anim-1 2s infinite linear alternate-reverse;
+  }
+  &:before {
+    left: -2px;
+    text-shadow: 2px 0 $highlightColor2;
+    animation: #{$name}-anim-2 3s infinite linear alternate-reverse;
+  }
+
+}
+
+@mixin placeholder() {
+  &::-webkit-input-placeholder {
+    @content;
+  }
+  &:-moz-placeholder {
+    @content;
+  }
+  &::-moz-placeholder {
+    @content;
+  }
+  &:-ms-input-placeholder {
+    @content
+  }
+}
+
+/**
+ * =LAYOUT
+ */
+* {
+    @include box-sizing(border-box);
+    margin: 0;
+    padding: 0;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/**
+ * =THEME
+ */
+body {
+  font-family: 'Play', sans-serif;
+}
+
+a {
+  cursor: pointer;
+  @include transition(all .2s ease-in);
+}
+
+/**
+ * =EARTH
+ */
+#earth {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  position: absolute !important;
+}
+
+/**
+ * =MAIN
+ */
+#main {
+  width: 100px;
+  min-width: 100px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0;
+  z-index: 100;
+  overflow: hidden;
+  &.expand {
+    background: rgba(0,0,0,.5);
+    width: 600px;
+    #content {
+        display: block;
+    }
+  }
+  #content {
+      display: none;
+  }
+}
+
+/**
+ * =TWITTER NAV
+ */
+#twitter-nav {
+  position: relative;
+  min-height: 60px;
+  width: 100%;
+  background: rgba(0,0,0,.3);
+  @include clearfix();
+  padding: 10px;
+  @include box-shadow(0 1px 4px 2px rgba(0, 0, 0, 0.79));
+
+  > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .middle-section {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 350px;
+    margin: 0 0 0 -175px;
+    text-align: center;
+    &.search-form-visible {
+      padding: 15px 0;
+    }
+  }
+  .title {
+    display: inline-block;
+    text-align: center;
+  }
+  .glitch-text {
+    font-size: 22px;
+    top: -7px;
+    width: 400px;
+    @include textGlitch('glitch', 17, $lighter-blue, transparent, red, blue, 450, 115);
+  }
+  .twitter-icon {
+    text-decoration: none;
+    font-size: 38px;
+    padding: 10px;
+    &,
+    &:visited {
+      color: $light-blue;
+    }
+    &:hover {
+      color: $twitter-blue;
+    }
+  }
+  .search-button {
+    font-size: 24px;
+    color: #fff;
+    font-size: 22px;
+    color: rgba(255, 255, 255, 0.2);
+    padding: 5px;
+    position: relative;
+    top: -4px;
+    &:hover {
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
+  .query-text {
+    position: absolute;
+    bottom: 2px;
+    color: #fff;
+    text-align: left;
+    width: 100%;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.51);
+  }
+}
+
+$duration: .5s;
+$size : 100%;
+$toggled-size : .75;
+$bg : #449A88;
+$nav-bg  : #2A2A2A;
+$content-bg : #E7E6DD;
+
+.navicon-button {
+  display: inline-block;
+  position: relative;
+  transition: $duration/2;
+  cursor: pointer;
+  user-select: none;
+  opacity: .2;
+  float: right;
+  padding: 20px 0;
+
+  .navicon:before, .navicon:after {
+    transition: $duration/2;
+  }
+
+  &:hover {
+    transition: $duration;
+    opacity: 1;
+
+    .navicon:before, .navicon:after {
+      transition: $duration/2;
+    }
+
+    .navicon:before { top: .825rem; }
+    .navicon:after { top: -.825rem; }
+  }
+}
+
+.navicon {
+  position: relative;
+  width: 2.5em;
+  height: .3125rem;
+  background: $content-bg;
+  transition: $duration;
+  border-radius: 2.5rem;
+
+  &:before, &:after {
+    display: block;
+    content: "";
+    height: .3125rem;
+    width: 2.5rem;
+    background: $content-bg;
+    position: absolute;
+    z-index: -1;
+    transition: $duration $duration/2;
+    border-radius: 1rem;
+  }
+
+  &:before { top: .625rem; }
+  &:after { top: -.625rem; }
+}
+
+.open:not(.steps) .navicon:before,
+.open:not(.steps) .navicon:after {
+  top: 0 !important;
+}
+
+.open .navicon:before,
+.open .navicon:after {
+  transition: $duration;
+}
+
+/* Arrows */
+.open.larr .navicon,
+.open.rarr .navicon,
+.open.uarr .navicon {
+    &:before, &:after {
+      width: 1.5rem;
+    }
+
+    &:before { transform: rotate(35deg); transform-origin: left top; }
+    &:after { transform: rotate(-35deg); transform-origin: left bottom; }
+}
+.open.uarr { transform: scale($toggled-size) rotate(90deg); }
+
+/* Arrows */
+.open.rarr .navicon {
+    &:before { transform: translate3d(1em,0,0) rotate(-35deg); transform-origin: right top; }
+    &:after { transform: translate3d(1em,0,0) rotate(35deg); transform-origin: right bottom; }
+}
+
+/* × and + */
+.open.plus,
+.open.x {
+  .navicon {
+    background: transparent;
+
+    &:before { transform: rotate(-45deg); }
+    &:after { transform: rotate(45deg); }
+  }
+}
+.open.plus {
+  transform: scale($toggled-size) rotate(45deg)
+}
+
+/**
+ * =CONTENT
+ */
+#content {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/**
+ * =TWITTER
+ */
+#twitter {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/**
+ * =TWITTER SEARCH FORM
+ */
+#twitter-search-form {
+  display: inline-block;
+  float: left;
+  width: 90%;
+  input {
+    font-size: 16px;
+    padding: 5px;
+    width: 100%;
+    background: rgba(0,0,0,.5);
+    border: 1px solid rgba(87, 106, 128, 0.77);
+    border-radius: 4px;
+    color: #fff;
+    @include appearance(none);
+    @include transition(all .2s ease-in);
+    @include placeholder() {
+      color: rgba(255, 255, 255, 0.22);
+    }
+    &:focus {
+      @include box-shadow(none);
+      outline: none;
+      border-color: rgba(87, 106, 128, 0.9);
+    }
+  }
+}
+
+/**
+ * =TWEETS
+ */
+@keyframes tweet-fade-in {
+  0% {
+    opacity: 0;
+    color: #fff;
+    @include transform(rotateX(-90deg) scale(.6) translate(-250px,0));
+  }
+  100% {
+    opacity: 1;
+    color: $light-blue;
+    @include transform(rotateX(0deg) scale(1) translate(0,0));
+  }
+}
+#tweets {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 600px;
+  ul {
+    display: block;
+    width: 100%;
+    height: 90%;
+    height: calc(100% - 100px);
+    overflow: auto;
+  }
+  li {
+    display: block;
+    list-style: none;
+    color: $light-blue;
+    margin: 0;
+    padding: 0;
+    line-height: 1.4;
+    padding: 10px 10px 10px 47px;
+    font-size: 14px;
+    position: relative;
+    min-height: 57px;
+    @include clearfix();
+    border-left: 10px solid rgba(0, 0, 0, 0.2);
+    @inclue transform-origin(0 0);
+    &.geo {
+      border-left-color: $geo-green;
+    }
+    &:hover {
+      background: rgba(0,0,0,.5);
+    }
+    &.tweet-enter {
+      @include animation(tweet-fade-in 1s ease-out);
+      //@include animation-fill-mode(forwards);
+    }
+    &.tweet-enter.tweet-enter-active {
+      opacity: 1;
+      color: $light-blue;
+      @include transform(translate(0,0));
+    }
+    &.tweet-leave.tweet-leave-active {
+    }
+    &.tweet-leave.tweet-leave-active {
+    }
+    &:first-child {
+      background: rgba(255,255,255,0.08);
+    }
+  }
+  a {
+    color: $light-blue;
+    text-decoration: none;
+    &:hover {
+      color: #fff;
+    }
+  }
+  img {
+    width: 32px;
+    height: 32px;
+    margin: 0 5px 0 0;
+    vertical-align: middle;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 15px 0 0 10px;
+  }
+  .screen-name {
+
+  }
+  .text {
+    color: $lighter-blue;
+  }
+  .datetime {
+    font-size: 11px;
+  }
+  .map-marker {
+    font-size: 16px;
+    color: #fff;
+    padding: 5px;
+    border-bottom: none;
+    &:hover {
+      border-bottom: none;
+      color: #fff;
+    }
+  }
+}
+
+/**
+ * =STATS
+ */
+#stats {
+  z-index: 1000;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

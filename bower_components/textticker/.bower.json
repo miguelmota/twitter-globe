@@ -1,0 +1,32 @@
+{
+  "name": "textticker",
+  "main": "textticker.js",
+  "homepage": "https://github.com/miguelmota/textticker",
+  "authors": [
+    "Miguel Mota <miguelmota2@gmail.com>"
+  ],
+  "description": "A simple text ticker",
+  "keywords": [
+    "text",
+    "ticker",
+    "scroll"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "license": "MIT",
+  "_release": "b0be0f2deb",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "b0be0f2deb78240eaafea8c5c32878cffd6a5bb8"
+  },
+  "_source": "git://github.com/miguelmota/textticker.git",
+  "_target": "*",
+  "_originalSource": "textticker",
+  "_direct": true
+}

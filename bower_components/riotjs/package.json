@@ -1,0 +1,31 @@
+{
+  "name": "riot",
+  "version": "2.0.1",
+  "description": "A React- like, 2.5K user interface library",
+  "homepage": "https://muut.com/riotjs/",
+  "repository": "muut/riotjs",
+  "author": "Muut, Inc. and other contributors",
+  "license": "MIT",
+  "keywords": [
+    "Custom tags",
+    "Web components",
+    "Polymer",
+    "React",
+    "Minimal",
+    "Client-side"
+  ],
+  "preferGlobal": true,
+  "bin": {
+    "riot": "compiler/make.js"
+  },
+  "main": "compiler/make.js",
+  "dependencies": {
+    "gaze": "~0.6.4",
+    "minimist": "~1.1.0",
+    "shelljs": "~0.3.0"
+  },
+  "devDependencies": {
+    "jshint": "latest",
+    "uglify-js": "latest"
+  }
+}
