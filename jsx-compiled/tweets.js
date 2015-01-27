@@ -49,27 +49,31 @@ var TwitterNavbar = React.createClass({displayName: "TwitterNavbar",
   getInitialState: function() {
     document.addEventListener('twitter:queryUpdated', function(event) {
       this.setState({query: event.detail.query});
-      this.searchButtonClick();
+      this.handleSearchButtonClick();
     }.bind(this));
 
     return {
       searchFormVisible: false,
-      query: '@twitter'
+      query: App.twitter.query
     };
   },
 
-  searchButtonClick: function() {
+  handleSearchButtonClick: function() {
    this.setState({
         searchFormVisible: !this.state.searchFormVisible
     });
   },
 
+  handleFormSubmit: function() {
+    this.handleSearchButtonClick();
+  },
+
   render: function() {
     var middleSection;
     if (!this.state.searchFormVisible) {
-      middleSection = React.createElement("div", null, React.createElement("div", {className: "title"}, React.createElement("a", {className: "fa fa-twitter twitter-icon", href: "https://twitter.com", target: "_blank"}), React.createElement("span", {className: "glitch-text", "data-text": "twitter"}, "twitter")), React.createElement("a", {className: 'fa fa-search search-button', onClick: this.searchButtonClick}), React.createElement("div", {className: "query-text"}, "q: ", this.state.query))
+      middleSection = React.createElement("div", null, React.createElement("div", {className: "title"}, React.createElement("a", {className: "fa fa-twitter twitter-icon", href: "https://twitter.com", target: "_blank"}), React.createElement("span", {className: "glitch-text", "data-text": "twitter"}, "twitter")), React.createElement("a", {className: 'fa fa-search search-button', onClick: this.handleSearchButtonClick}), React.createElement("div", {className: "query-text"}, "q: ", this.state.query))
     } else {
-      middleSection = React.createElement("div", null, React.createElement("div", {id: "twitter-search-form"}, React.createElement(TwitterSearchForm, {ref: "searchForm"})), React.createElement("a", {className: 'fa fa-search search-button', onClick: this.searchButtonClick}))
+      middleSection = React.createElement("div", null, React.createElement("div", {id: "twitter-search-form"}, React.createElement(TwitterSearchForm, {ref: "searchForm", onSubmit: this.handleFormSubmit})))
       _.delay(function() {
         this.refs.searchForm.getDOMNode().querySelector('input').focus();
       }.bind(this));
@@ -98,11 +102,16 @@ var TwitterSearchForm = React.createClass({displayName: "TwitterSearchForm",
     console.log('twitter form query:', query);
     var evt = new CustomEvent('twitter:queryUpdated', {detail: {query: query}});
     document.dispatchEvent(evt);
+    if (_.isFunction(this.props.onSubmit)) {
+      this.props.onSubmit(query);
+    }
   },
+
   render: function() {
     return (
       React.createElement("form", {onSubmit: this.handleSubmit}, 
-      React.createElement("input", {type: "search", placeholder: "query", ref: "query"})
+      React.createElement("input", {type: "search", placeholder: "query", ref: "query"}), 
+      React.createElement("a", {className: 'fa fa-search search-button', onClick: this.handleSubmit})
       )
     )
   }

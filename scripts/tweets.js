@@ -1,9 +1,12 @@
-(function(App) {
+(function(root) {
   'use strict';
 
-  var tweets = [];
+  root.App = root.App || {};
 
-  var query = '@twitter';
+  App.twitter = App.twitter || {};
+
+  App.twitter.tweets = App.twitter.tweets || [];
+  App.twitter.query = App.twitter.query || (qsparams.get('q') || '@twitter');
 
   var socket = io.connect('127.0.0.1:8906');
   App.socket = socket;
@@ -25,8 +28,8 @@
   socket.on('twitter:tweet', handleTweet);
 
   function initSearch() {
-    socket.emit('twitter:search', {q: query, count: 100});
-    socket.emit('twitter:track', query);
+    socket.emit('twitter:search', {q: App.twitter.query, count: 100});
+    socket.emit('twitter:track', App.twitter.query);
   }
 
   function handleTweet(tweet) {
@@ -36,7 +39,7 @@
     //geo.coordinates[0] 1
     // tweet.text
 
-    tweets.push(tweet);
+    App.twitter.tweets.push(tweet);
 
     update();
 
@@ -63,18 +66,19 @@
 
   document.addEventListener('twitter:queryUpdated', function(event) {
     var q = event.detail.query;
-    console.log('event query updated:', query);
-    query = q;
+    console.log('event query updated:', q);
+    App.twitter.query = q;
+    qsparams.set('q', q);
     resetTweets();
     initSearch();
   });
 
   function resetTweets() {
-    tweets = [];
+    App.twitter.tweets = [];
     React.unmountComponentAtNode(document.getElementById('tweets'));
   }
 
   function update() {
-    React.render(React.createElement(TweetList, {tweets:tweets}), document.getElementById('tweets'));
+    React.render(React.createElement(TweetList, {tweets: App.twitter.tweets}), document.getElementById('tweets'));
   }
-})(window.Dashboard || {});
+})(window);

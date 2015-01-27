@@ -49,27 +49,31 @@ var TwitterNavbar = React.createClass({
   getInitialState: function() {
     document.addEventListener('twitter:queryUpdated', function(event) {
       this.setState({query: event.detail.query});
-      this.searchButtonClick();
+      this.handleSearchButtonClick();
     }.bind(this));
 
     return {
       searchFormVisible: false,
-      query: '@twitter'
+      query: App.twitter.query
     };
   },
 
-  searchButtonClick: function() {
+  handleSearchButtonClick: function() {
    this.setState({
         searchFormVisible: !this.state.searchFormVisible
     });
   },
 
+  handleFormSubmit: function() {
+    this.handleSearchButtonClick();
+  },
+
   render: function() {
     var middleSection;
     if (!this.state.searchFormVisible) {
-      middleSection = <div><div className="title"><a className="fa fa-twitter twitter-icon" href="https://twitter.com" target="_blank"></a><span className="glitch-text" data-text="twitter">twitter</span></div><a className={'fa fa-search search-button'} onClick={this.searchButtonClick}></a><div className="query-text">q: {this.state.query}</div></div>
+      middleSection = <div><div className="title"><a className="fa fa-twitter twitter-icon" href="https://twitter.com" target="_blank"></a><span className="glitch-text" data-text="twitter">twitter</span></div><a className={'fa fa-search search-button'} onClick={this.handleSearchButtonClick}></a><div className="query-text">q: {this.state.query}</div></div>
     } else {
-      middleSection = <div><div id="twitter-search-form"><TwitterSearchForm ref="searchForm" /></div><a className={'fa fa-search search-button'} onClick={this.searchButtonClick}></a></div>
+      middleSection = <div><div id="twitter-search-form"><TwitterSearchForm ref="searchForm" onSubmit={this.handleFormSubmit} /></div></div>
       _.delay(function() {
         this.refs.searchForm.getDOMNode().querySelector('input').focus();
       }.bind(this));
@@ -98,11 +102,16 @@ var TwitterSearchForm = React.createClass({
     console.log('twitter form query:', query);
     var evt = new CustomEvent('twitter:queryUpdated', {detail: {query: query}});
     document.dispatchEvent(evt);
+    if (_.isFunction(this.props.onSubmit)) {
+      this.props.onSubmit(query);
+    }
   },
+
   render: function() {
     return (
       <form onSubmit={this.handleSubmit}>
       <input type="search" placeholder="query" ref="query" />
+      <a className={'fa fa-search search-button'} onClick={this.handleSubmit}></a>
       </form>
     )
   }
