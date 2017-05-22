@@ -1,13 +1,13 @@
 {
     "twitter": {
-     "consumer_key": "EaMYaFp893YsqYpMDagm8aR64",
-     "consumer_secret": "XhlxagjviDS68zM6FWDdcEQWGShiRXxlL0R2Sjh2kWlbzMPZ6g",
-     "access_token": "30783806-NMwoVB01v4jZwgJVVcOVYNtfoMqyyUVxRcHQREGqa",
-     "access_token_secret": "wqhT67v2Wxwx1GNitk7IbxEfG0MyeHzGoYCtKGJSAAowu"
+     "consumer_key": "sm6FKq6fMTE7fW9EQEQ",
+     "consumer_secret": "UgCSx1h2biJaJLc2l478ZRIPyvlbmdmNnGQdfDRlyM",
+     "access_token": "30783806-ga2b87Q59LclI8EMIHFMT5vmlaknjn5LpCOroIdyN",
+     "access_token_secret": "1JP5aUYysMmyaOHydHYJqIebRGUmuPQp7kGwWGh4uOa6s"
     },
     "defaults": {
         "track": [
-            "food"
+            "blockchain"
         ]
     }
 }

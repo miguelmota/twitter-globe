@@ -35,7 +35,7 @@ io.sockets.on('connection', function (socket){
   var twitterStream;
 
   socket.on('twitter:track', function(track) {
-    console.log('twitter track:', track);
+    //console.log('twitter track:', track);
 
     if (twitterStream) {
       twitterStream.stop();
@@ -45,14 +45,14 @@ io.sockets.on('connection', function (socket){
       {track: track});
 
     twitterStream.on('tweet', function(tweet) {
-      console.log(tweet);
+      //console.log(tweet);
       socket.emit('twitter:tweet', tweet);
     });
 
   });
 
   socket.on('twitter:search', function(query) {
-    console.log('twitter search:', query);
+    //console.log('twitter search:', query);
     var opts = {q: query};
     if (_.isObject(query)) {
       opts = query;
@@ -63,7 +63,7 @@ io.sockets.on('connection', function (socket){
       opts,
       function(err, tweets) {
         if (!err) {
-          console.log(tweets);
+          //console.log(tweets);
           socket.emit('twitter:search', tweets);
         } else {
           console.error(err);

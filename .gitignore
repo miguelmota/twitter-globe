@@ -78,7 +78,7 @@ dwsync.xml
 
 # Node #
 #####################
-#node_modules
+node_modules
 
 # Bower #
 #####################

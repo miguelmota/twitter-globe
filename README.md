@@ -6,7 +6,7 @@ Geolocated tweets on a globe.
 
 # Demo
 
-[http://twitter-globe.moogs.io](http://twitter-globe.moogs.io)
+[https://lab.miguelmota.com/twitter-globe](https://lab.miguelmota.com/twitter-globe)
 
 # Development
 
