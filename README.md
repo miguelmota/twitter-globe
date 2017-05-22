@@ -10,6 +10,12 @@ Geolocated tweets on a globe.
 
 # Development
 
+Start server
+
+```bash
+npm start
+```
+
 Compile Sass and JSX
 
 ```bash
