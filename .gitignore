@@ -106,3 +106,4 @@ tmp
 # Files to ignore #
 #####################
 images/*
+config/config.json
